@@ -8,7 +8,8 @@ options = {
     inputHamburguer:'',
     etapa: 1, // valor atribuido a etapa e irá criar uma condição no HTML de v-if='etapa === 1'
     inputNome: '',
-    inputEndereco: ''
+    inputEndereco: '',
+    novoPedidoAtualizado: ''
   },
   methods:{
     // criando uma funcao para que se a condição na
@@ -26,7 +27,7 @@ options = {
 
         // realizar uma atualização da pagina caso nao tomar uma ação em determinado tempo 
 
-        setTimeout( ()=> this.NovoPedido(), 8000)
+       this.novoPedidoAtualizado = setTimeout( ()=> this.NovoPedido(), 8000)
 
       }else {
         alert ('Você precisa informar o seu nome e endereço')
@@ -117,7 +118,13 @@ options = {
     }
   
   },
-  watch:{}
+  watch:{
+    etapa(novoValor){
+      if(novoValor == 1){
+        clearTimeout(this.novoPedidoAtualizado)
+      }
+    }
+  }
 }
 
 const vm = new Vue(options);
